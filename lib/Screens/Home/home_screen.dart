@@ -3,10 +3,44 @@ import 'package:boot_camp/CustomWidgets/custom_floating_btn.dart';
 import 'package:boot_camp/CustomWidgets/custom_recomendations.dart';
 import 'package:boot_camp/CustomWidgets/product.dart';
 import 'package:boot_camp/Screens/Details/product_details.dart';
+import 'package:boot_camp/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:boot_camp/Styles/text_styles.dart';
 
 class MyApp extends StatelessWidget {
+  List<ProductDataModel> productList = [
+    ProductDataModel(
+        img: 'assets/images/house5.jpg',
+        price: 200000,
+        place: 'Silicon street',
+        bedroom: 5,
+        bathroom: 4),
+    ProductDataModel(
+        img: 'assets/images/house4.jpg',
+        price: 450000,
+        place: 'BBQ Mahal',
+        bedroom: 3,
+        bathroom: 3),
+    ProductDataModel(
+        img: 'assets/images/house3.jpg',
+        price: 560000,
+        place: 'Willighton Islands',
+        bedroom: 3,
+        bathroom: 4),
+    ProductDataModel(
+        img: 'assets/images/house2.jpg',
+        price: 99900,
+        place: 'Main Powerhouse',
+        bedroom: 4,
+        bathroom: 4),
+    ProductDataModel(
+        img: 'assets/images/house1.jpg',
+        price: 8500500,
+        place: 'Baaly street',
+        bedroom: 2,
+        bathroom: 2),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,7 +76,20 @@ class MyApp extends StatelessWidget {
                   ),
                   Divider(),
                   priceRangeBar(),
-                  productBar()
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: productList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Product(
+                        img: productList[index].img,
+                        price: productList[index].price.toString(),
+                        address: productList[index].place,
+                        spec:
+                            "${productList[index].bedroom} Bedroom / ${productList[index].bathroom} Bathroom",
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -55,45 +102,6 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  ListView productBar() {
-    return ListView(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      children: [
-        Product(
-          img: 'assets/images/house5.jpg',
-          price: '\$200,000',
-          address: 'Silicon street',
-          spec: '4 Bedroom / 2 bathroom',
-        ),
-        Product(
-          img: 'assets/images/house4.jpg',
-          price: '\$450,000',
-          address: 'BBQ street',
-          spec: '5 Bedroom / 5 bathroom',
-        ),
-        Product(
-          img: 'assets/images/house3.jpg',
-          price: '\$340,000',
-          address: 'Washington street',
-          spec: '5 Bedroom / 3 bathroom',
-        ),
-        Product(
-          img: 'assets/images/house2.jpg',
-          price: '\$700,000',
-          address: 'Citadel road',
-          spec: '4 Bedroom / 2 bathroom',
-        ),
-        Product(
-          img: 'assets/images/house1.jpg',
-          price: '\$300,000',
-          address: 'Abacuz road',
-          spec: '4 Bedroom / 2 bathroom',
-        ),
-      ],
-    );
-  }
-
   Container priceRangeBar() {
     return Container(
       height: 38,
@@ -103,8 +111,10 @@ class MyApp extends StatelessWidget {
           CustomRecomendations(text: '\$ 22000'),
           CustomRecomendations(text: '\$ 9990'),
           CustomRecomendations(text: '<\$ 50000'),
-          CustomRecomendations(text: '\$ 15K-\$ 20K'),
-          CustomRecomendations(text: '\$ 2299'),
+          CustomRecomendations(text: '\$ 15K - \$ 20K'),
+          CustomRecomendations(text: '\$ 8995'),
+          CustomRecomendations(text: '\$ 5299'),
+          CustomRecomendations(text: '\$ 7000')
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:boot_camp/Screens/Details/product_details.dart';
 import 'package:boot_camp/Styles/text_styles.dart';
+import 'package:boot_camp/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class Product extends StatelessWidget {
@@ -7,7 +8,8 @@ class Product extends StatelessWidget {
   final String price, address, spec, img;
 
   void cardClick(context) {
-    Navigator.of(context).pushNamed(ProductDetails.routeName);
+    Navigator.of(context).pushNamed(ProductDetails.routeName,
+        arguments: ProductDataModel(img: 'assets/images/house5.jpg'));
   }
 
   @override
@@ -31,7 +33,7 @@ class Product extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      price,
+                      '\$$price',
                       style: largetxt,
                     ),
                     SizedBox(
