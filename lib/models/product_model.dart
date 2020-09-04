@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class ProductDataModel {
   String img;
   double price;

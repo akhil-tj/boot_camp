@@ -55,18 +55,65 @@ class Product extends StatelessWidget {
           Positioned(
             top: 22,
             right: 16,
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: Icon(
-                Icons.favorite_border,
-                color: Colors.black54,
-              ),
-            ),
+            child: FavIcon(),
           )
         ],
       ),
     );
+  }
+}
+
+class FavIcon extends StatefulWidget {
+  @override
+  _FavIconState createState() => _FavIconState();
+}
+
+class _FavIconState extends State<FavIcon> {
+  IconData favRedIcon = Icons.favorite_border;
+  Color color = Colors.black54;
+  bool temp = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        favFunction();
+      },
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(
+          favRedIcon,
+          color: color,
+        ),
+      ),
+    );
+  }
+
+  void favFunction() {
+    return setState(() {
+      if (temp == true) {
+        temp = false;
+      } else {
+        temp = true;
+      }
+      switch (temp) {
+        case true:
+          {
+            favRedIcon = Icons.favorite;
+            color = Colors.red;
+            break;
+          }
+        case false:
+          {
+            favRedIcon = Icons.favorite_border;
+            color = Colors.black54;
+            break;
+          }
+      }
+    });
   }
 }

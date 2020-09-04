@@ -46,6 +46,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              ListTile(
+                title: Text('form'),
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: CustomFloatingButton(),
         body: SafeArea(
