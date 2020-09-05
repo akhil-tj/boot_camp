@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:boot_camp/Styles/text_styles.dart';
 
 class MyApp extends StatelessWidget {
+  final GlobalKey _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   List<ProductDataModel> productList = [
     ProductDataModel(
         img: 'assets/images/house5.jpg',
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        key: _scaffoldKey,
         drawer: Drawer(
           child: ListView(
             children: [
@@ -66,7 +69,11 @@ class MyApp extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomAppBar(),
+                  CustomAppBar(
+                    onTap: () {
+                      _scaffoldKey.currentState.openDrawer();
+                    },
+                  ),
                   Text(
                     'City',
                     style: smalltxt,

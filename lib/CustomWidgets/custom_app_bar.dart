@@ -2,6 +2,8 @@ import 'package:boot_camp/CustomWidgets/custom_icon_btn.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
+  Function onTap;
+  CustomAppBar({this.onTap});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -9,8 +11,11 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CustomIconBtn(
-            myicon: Icons.menu,
+          GestureDetector(
+            onTap: () => onTap(),
+            child: CustomIconBtn(
+              myicon: Icons.menu,
+            ),
           ),
           CustomIconBtn(
             myicon: Icons.search,
