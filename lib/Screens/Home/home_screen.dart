@@ -2,13 +2,12 @@ import 'package:boot_camp/CustomWidgets/custom_app_bar.dart';
 import 'package:boot_camp/CustomWidgets/custom_floating_btn.dart';
 import 'package:boot_camp/CustomWidgets/custom_recomendations.dart';
 import 'package:boot_camp/CustomWidgets/product.dart';
-import 'package:boot_camp/Screens/Details/product_details.dart';
 import 'package:boot_camp/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:boot_camp/Styles/text_styles.dart';
 
 class MyApp extends StatelessWidget {
-  final GlobalKey _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   List<ProductDataModel> productList = [
     ProductDataModel(
@@ -43,79 +42,80 @@ class MyApp extends StatelessWidget {
         bathroom: 2),
   ];
 
+  void tileClick(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pushNamed('/form');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        key: _scaffoldKey,
-        drawer: Drawer(
-          child: ListView(
-            children: [
-              ListTile(
-                title: Text('form'),
-                onTap: () {},
-              ),
-            ],
-          ),
+    return Scaffold(
+      key: _drawerKey,
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+                leading: Icon(Icons.edit),
+                title: Text('Form'),
+                onTap: () {
+                  tileClick(context);
+                }),
+          ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: CustomFloatingButton(),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomAppBar(
-                    onTap: () {
-                      _scaffoldKey.currentState.openDrawer();
-                    },
-                  ),
-                  Text(
-                    'City',
-                    style: smalltxt,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'San Francisco',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      Icon(Icons.more_vert)
-                    ],
-                  ),
-                  Divider(),
-                  priceRangeBar(),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: productList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Product(
-                        img: productList[index].img,
-                        price: productList[index].price.toString(),
-                        address: productList[index].place,
-                        spec:
-                            "${productList[index].bedroom} Bedroom / ${productList[index].bathroom} Bathroom",
-                      );
-                    },
-                  ),
-                ],
-              ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: CustomFloatingButton(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomAppBar(
+                  onTap: () {
+                    _drawerKey.currentState.openDrawer();
+                  },
+                ),
+                Text(
+                  'City',
+                  style: smalltxt,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'San Francisco',
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Icon(Icons.more_vert)
+                  ],
+                ),
+                Divider(),
+                priceRangeBar(),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: productList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Product(
+                      img: productList[index].img,
+                      price: productList[index].price.toString(),
+                      address: productList[index].place,
+                      spec:
+                          "${productList[index].bedroom} Bedroom / ${productList[index].bathroom} Bathroom",
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),
       ),
-      routes: {
-        ProductDetails.routeName: (context) => ProductDetails(),
-      },
     );
   }
 
